@@ -1,7 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { badgeById } from '../../data/badges'
+import { useI18n } from '../../lib/i18n'
 
 export function BadgeUnlock({ badgeId, onClose }: { badgeId: string | null; onClose: () => void }) {
+  const { t } = useI18n()
   const badge = badgeId ? badgeById[badgeId] : null
   return (
     <AnimatePresence>
@@ -14,9 +16,9 @@ export function BadgeUnlock({ badgeId, onClose }: { badgeId: string | null; onCl
             onClick={(e) => e.stopPropagation()}
           >
             <div className="text-6xl">{badge.emoji}</div>
-            <h3 className="mt-3 text-xl font-bold">Badge debloque</h3>
+            <h3 className="mt-3 text-xl font-bold">{t('badgeUnlocked')}</h3>
             <p className="text-slate-300">{badge.name}</p>
-            <button className="mt-6 rounded-lg bg-cyan-500 px-4 py-2 font-medium text-black" onClick={onClose}>Continuer</button>
+            <button className="mt-6 rounded-lg bg-cyan-500 px-4 py-2 font-medium text-black" onClick={onClose}>{t('continue')}</button>
           </motion.div>
         </motion.div>
       ) : null}

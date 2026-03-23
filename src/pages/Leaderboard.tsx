@@ -1,4 +1,5 @@
 import { useUserStore } from '../store/userStore'
+import { useI18n } from '../lib/i18n'
 
 const mock = [
   ['1', 'ClusterKing', 'Maitre du Cluster', 4200, 18, 32],
@@ -8,13 +9,14 @@ const mock = [
 ]
 
 export function Leaderboard() {
+  const { t } = useI18n()
   const user = useUserStore()
   const rows = [...mock, ['5', user.username, user.level, user.xp, user.badges.length, user.streak] as const]
   return (
     <main className="mx-auto max-w-5xl px-4 py-8">
       <div className="panel overflow-hidden">
         <table className="w-full text-left text-sm">
-          <thead className="bg-slate-900/70 text-slate-300"><tr><th className="p-3">Rang</th><th>Utilisateur</th><th>Niveau</th><th>XP</th><th>Badges</th><th>Streak</th></tr></thead>
+          <thead className="bg-slate-900/70 text-slate-300"><tr><th className="p-3">{t('rank')}</th><th>{t('user')}</th><th>{t('level')}</th><th>XP</th><th>{t('badges')}</th><th>Streak</th></tr></thead>
           <tbody>
             {rows.map((r) => (
               <tr key={r[1]} className={r[1] === user.username ? 'bg-cyan-500/10' : 'border-t border-border'}>

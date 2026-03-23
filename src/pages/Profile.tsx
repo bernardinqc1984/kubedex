@@ -4,8 +4,10 @@ import { XPBar } from '../components/gamification/XPBar'
 import { LevelBadge } from '../components/gamification/LevelBadge'
 import { useProgressStore } from '../store/progressStore'
 import { useUserStore } from '../store/userStore'
+import { useI18n } from '../lib/i18n'
 
 export function Profile() {
+  const { t } = useI18n()
   const user = useUserStore()
   const progress = useProgressStore()
   const worldsDone = worlds.filter((w) => w.lessons.every((l) => progress.completedLessons.includes(l.id))).length
@@ -22,12 +24,12 @@ export function Profile() {
         <div className="mt-4"><XPBar xp={user.xp} level={user.level} /></div>
       </section>
       <section className="grid gap-4 md:grid-cols-3">
-        <div className="panel p-4">Lecons terminees: {progress.completedLessons.length}</div>
-        <div className="panel p-4">Mondes completes: {worldsDone}</div>
-        <div className="panel p-4">Progression globale: {globalProgress}%</div>
+        <div className="panel p-4">{t('completedLessons')}: {progress.completedLessons.length}</div>
+        <div className="panel p-4">{t('completedWorlds')}: {worldsDone}</div>
+        <div className="panel p-4">{t('globalProgress')}: {globalProgress}%</div>
       </section>
       <section className="panel p-5">
-        <h2 className="mb-3 text-lg font-bold">Tous les badges</h2>
+        <h2 className="mb-3 text-lg font-bold">{t('allBadges')}</h2>
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
           {badges.map((b) => <div key={b.id} className={`rounded-lg border border-border p-3 text-center ${user.badges.includes(b.id) ? '' : 'opacity-40'}`}><div className="text-2xl">{b.emoji}</div><div className="text-xs">{b.name}</div></div>)}
         </div>

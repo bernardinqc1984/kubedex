@@ -6,8 +6,10 @@ import { LevelBadge } from '../components/gamification/LevelBadge'
 import { StreakCounter } from '../components/gamification/StreakCounter'
 import { useUserStore } from '../store/userStore'
 import { useProgressStore } from '../store/progressStore'
+import { useI18n } from '../lib/i18n'
 
 export function Dashboard() {
+  const { t } = useI18n()
   const user = useUserStore()
   const progress = useProgressStore()
   const next = worlds[0].lessons.find((l) => !progress.completedLessons.includes(l.id))
@@ -21,10 +23,10 @@ export function Dashboard() {
         </div>
         <XPBar xp={user.xp} level={user.level} />
         <StreakCounter streak={user.streak} large />
-        {next ? <Link to={`/lesson/${next.id}`} className="inline-block rounded-lg bg-cyan-400 px-4 py-2 font-semibold text-black">Continuer</Link> : null}
+        {next ? <Link to={`/lesson/${next.id}`} className="inline-block rounded-lg bg-cyan-400 px-4 py-2 font-semibold text-black">{t('continue')}</Link> : null}
       </section>
       <section className="panel p-5 md:col-span-3">
-        <h2 className="mb-3 text-lg font-bold">Badges</h2>
+        <h2 className="mb-3 text-lg font-bold">{t('badges')}</h2>
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
           {badges.map((badge) => {
             const unlocked = user.badges.includes(badge.id)
@@ -35,7 +37,7 @@ export function Dashboard() {
             )
           })}
         </div>
-        <h3 className="mt-6 text-sm font-semibold text-slate-300">Progression par monde</h3>
+        <h3 className="mt-6 text-sm font-semibold text-slate-300">{t('worldProgress')}</h3>
         <div className="mt-2 space-y-2">
           {worlds.map((w, i) => {
             const pct = Math.round(progress.getWorldProgress(w.id, w.lessons.length) * 100)
@@ -47,7 +49,7 @@ export function Dashboard() {
             )
           })}
         </div>
-        {user.badges.length > 0 ? <p className="mt-4 text-xs text-slate-500">Dernier badge: {badgeById[user.badges[user.badges.length - 1]]?.name}</p> : null}
+        {user.badges.length > 0 ? <p className="mt-4 text-xs text-slate-500">{t('lastBadge')}: {badgeById[user.badges[user.badges.length - 1]]?.name}</p> : null}
       </section>
     </main>
   )
