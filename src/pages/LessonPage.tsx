@@ -9,6 +9,8 @@ import { useProgressStore } from '../store/progressStore'
 import { XPPopup } from '../components/gamification/XPPopup'
 import { BadgeUnlock } from '../components/gamification/BadgeUnlock'
 import { useI18n } from '../lib/i18n'
+import { useAuthStore } from '../store/authStore'
+import { canAccessLesson } from '../lib/access'
 
 export function LessonPage() {
   const { t } = useI18n()
@@ -16,6 +18,7 @@ export function LessonPage() {
   const navigate = useNavigate()
   const lesson = lessonById[lessonId]
   const content = lessonContentById[lessonId]
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
   const { completeLesson, startLesson, completedLessons, lastXpGain, lastUnlockedBadge } = useProgressStore()
   const [code, setCode] = useState(content?.initialCode ?? '')
   const [error, setError] = useState('')
@@ -42,6 +45,21 @@ export function LessonPage() {
   }, [lessonId])
 
   if (!lesson || !content) return <main className="p-6">{t('lessonNotFound')}</main>
+  const allowed = canAccessLesson(lesson, completedLessons, isAuthenticated)
+  if (!allowed) {
+    return (
+      <main className="mx-auto max-w-3xl px-4 py-10">
+        <div className="panel space-y-3 p-6 text-center">
+          <h2 className="text-2xl font-bold">Test verrouille</h2>
+          <p className="text-slate-300">Le premier test est accessible sans compte. Connecte-toi pour debloquer les autres.</p>
+          <div className="flex justify-center gap-3">
+            <Link to="/lesson/world1-l1" className="rounded-lg border border-border px-4 py-2">Aller au premier test</Link>
+            <Link to="/profile" className="rounded-lg bg-cyan-400 px-4 py-2 font-semibold text-black">Se connecter</Link>
+          </div>
+        </div>
+      </main>
+    )
+  }
 
   const onValidate = () => {
     const result = content.validate(code)

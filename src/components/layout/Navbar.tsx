@@ -4,11 +4,13 @@ import { XPBar } from '../gamification/XPBar'
 import { StreakCounter } from '../gamification/StreakCounter'
 import { useLanguageStore } from '../../store/languageStore'
 import { useI18n } from '../../lib/i18n'
+import { useAuthStore } from '../../store/authStore'
 
 export function Navbar() {
   const { xp, level, streak } = useUserStore()
   const { t } = useI18n()
   const { language, setLanguage } = useLanguageStore()
+  const { isAuthenticated, logout } = useAuthStore()
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-bg/90 backdrop-blur">
@@ -19,6 +21,11 @@ export function Navbar() {
           <Link to="/leaderboard">{t('navLeaderboard')}</Link>
           <Link to="/profile">{t('navProfile')}</Link>
         </nav>
+        {isAuthenticated ? (
+          <button onClick={logout} className="rounded-md border border-border px-3 py-1 text-xs">{t('logout')}</button>
+        ) : (
+          <Link to="/profile" className="rounded-md border border-border px-3 py-1 text-xs">{t('login')}</Link>
+        )}
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value as 'fr' | 'en')}

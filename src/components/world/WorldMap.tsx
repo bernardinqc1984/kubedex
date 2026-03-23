@@ -2,12 +2,15 @@ import { Check, Lock, Sword, Star } from 'lucide-react'
 import type { LessonMeta, WorldMeta } from '../../data/worlds'
 import { useProgressStore } from '../../store/progressStore'
 import { useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../../store/authStore'
+import { canAccessLesson } from '../../lib/access'
 
-const isAvailable = (lesson: LessonMeta, completedLessons: string[]) =>
-  !lesson.prerequisite || completedLessons.includes(lesson.prerequisite)
+const isAvailable = (lesson: LessonMeta, completedLessons: string[], isAuthenticated: boolean) =>
+  canAccessLesson(lesson, completedLessons, isAuthenticated)
 
 export function WorldMap({ world }: { world: WorldMeta }) {
   const { completedLessons } = useProgressStore()
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
   const navigate = useNavigate()
 
   return (
@@ -22,7 +25,7 @@ export function WorldMap({ world }: { world: WorldMeta }) {
       </svg>
       {world.lessons.map((lesson) => {
         const completed = completedLessons.includes(lesson.id)
-        const available = isAvailable(lesson, completedLessons)
+        const available = isAvailable(lesson, completedLessons, isAuthenticated)
         const size = lesson.type === 'boss' ? 56 : 40
         return (
           <button

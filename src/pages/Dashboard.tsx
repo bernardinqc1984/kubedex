@@ -7,12 +7,19 @@ import { StreakCounter } from '../components/gamification/StreakCounter'
 import { useUserStore } from '../store/userStore'
 import { useProgressStore } from '../store/progressStore'
 import { useI18n } from '../lib/i18n'
+import { useAuthStore } from '../store/authStore'
+import { canAccessLesson } from '../lib/access'
 
 export function Dashboard() {
   const { t } = useI18n()
   const user = useUserStore()
   const progress = useProgressStore()
-  const next = worlds[0].lessons.find((l) => !progress.completedLessons.includes(l.id))
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+  const next = worlds[0].lessons.find(
+    (l) =>
+      !progress.completedLessons.includes(l.id) &&
+      canAccessLesson(l, progress.completedLessons, isAuthenticated),
+  ) ?? worlds[0].lessons[0]
 
   return (
     <main className="mx-auto grid max-w-7xl gap-6 px-4 py-8 md:grid-cols-5">
