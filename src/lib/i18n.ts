@@ -62,6 +62,13 @@ const dict = {
     advancedReason2Text: 'Controle fin des privileges runtime avec des politiques OpenShift natives.',
     advancedReason3Title: 'Ecosysteme Red Hat',
     advancedReason3Text: "Integration naturelle avec GitOps, CI/CD et outils cloud-native d'entreprise.",
+    lockedTestTitle: 'Test verrouille',
+    lockedTestBody: 'Le premier test est accessible sans compte. Connecte-toi pour debloquer les autres.',
+    goFirstTest: 'Aller au premier test',
+    signInCta: 'Se connecter',
+    lessonOfWorld: 'Lecon {current} / {total} du monde',
+    hintNeedHelp: "💡 Besoin d'un indice ?",
+    world5UnlockMsg: 'Monde 5 verrouille: termine le monde 4 pour debloquer OpenShift.',
   },
   en: {
     navDashboard: 'Dashboard',
@@ -123,6 +130,13 @@ const dict = {
     advancedReason2Text: 'Fine-grained runtime privilege control with native OpenShift policies.',
     advancedReason3Title: 'Red Hat ecosystem',
     advancedReason3Text: 'Natural integration with GitOps, CI/CD, and enterprise cloud-native tools.',
+    lockedTestTitle: 'Locked test',
+    lockedTestBody: 'The first test is available without an account. Sign in to unlock the others.',
+    goFirstTest: 'Go to first test',
+    signInCta: 'Sign in',
+    lessonOfWorld: 'Lesson {current} / {total} of world',
+    hintNeedHelp: '💡 Need a hint?',
+    world5UnlockMsg: 'World 5 is locked: complete world 4 to unlock OpenShift.',
   },
 } as const
 
@@ -141,4 +155,47 @@ export const levelLabel = (level: Level, language: 'fr' | 'en') => {
     'Maitre du Cluster': 'Cluster Master',
   }
   return map[level]
+}
+
+export const worldTitleLabel = (worldId: string, fallback: string, language: 'fr' | 'en') => {
+  if (language === 'fr') return fallback
+  const map: Record<string, string> = {
+    world1: 'The Container Forge',
+    world2: 'The Origins Cluster',
+    world3: 'The Service Guardians',
+    world4: "The Alchemist's Vault",
+    world5: "The Master's Arena",
+  }
+  return map[worldId] ?? fallback
+}
+
+export const worldSubtitleLabel = (worldId: string, fallback: string, language: 'fr' | 'en') => {
+  if (language === 'fr') return fallback
+  const map: Record<string, string> = {
+    world1: 'The Docker world',
+    world2: 'Kubernetes fundamentals',
+    world3: 'Networking and Ingress',
+    world4: 'Storage and StatefulSets',
+    world5: 'OpenShift & Advanced Cloud Native',
+  }
+  return map[worldId] ?? fallback
+}
+
+export const badgeNameLabel = (badgeId: string, fallback: string, language: 'fr' | 'en') => {
+  if (language === 'fr') return fallback
+  const map: Record<string, string> = {
+    first_container: 'First Container',
+    image_hunter: 'Image Hunter',
+    dockerfile_master: 'Dockerfile Architect',
+    compose_wizard: 'Compose Wizard',
+    world1_complete: 'Container Forgemaster',
+    speed_runner: 'Speed Runner',
+    streak_7: '7-Day Flame',
+    streak_30: 'Infernal Flame',
+    openshift_initiate: 'OpenShift Initiate',
+    rbac_master: 'RBAC Master',
+    gitops_engineer: 'GitOps Engineer',
+    master_of_cluster: 'Cluster Master',
+  }
+  return map[badgeId] ?? fallback
 }

@@ -18,6 +18,17 @@
   box-sizing: border-box;
 }
 
+*:focus-visible {
+  outline: 2px solid #00d4ff;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: #00d4ff25;
+  color: #00d4ff;
+}
+
 body {
   margin: 0;
   font-family: 'Space Grotesk', system-ui, sans-serif;
@@ -37,4 +48,13 @@ body {
 
 .subtle-glow {
   box-shadow: 0 0 0.8rem rgba(0, 212, 255, 0.18);
+}
+
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }

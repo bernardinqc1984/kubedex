@@ -2,19 +2,13 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { worlds } from '../data/worlds'
 import { useProgressStore } from '../store/progressStore'
-import { useI18n } from '../lib/i18n'
+import { useI18n, worldTitleLabel } from '../lib/i18n'
 
 export default function AdvancedPage() {
   const { t, language } = useI18n()
   const completedLessons = useProgressStore((s) => s.completedLessons)
   const world5 = worlds.find((w) => w.id === 'world5')!
   const prereqWorlds = useMemo(() => worlds.filter((w) => ['world1', 'world2', 'world3', 'world4'].includes(w.id)), [])
-  const worldTitlesEn: Record<string, string> = {
-    world1: 'The Container Forge',
-    world2: 'The Origins Cluster',
-    world3: 'The Service Guardians',
-    world4: "The Alchemist's Vault",
-  }
 
   const status = prereqWorlds.map((world) => {
     const done = world.lessons.every((lesson) => completedLessons.includes(lesson.id))
@@ -35,7 +29,7 @@ export default function AdvancedPage() {
         <div className="mt-3 grid gap-2">
           {status.map(({ world, done }) => (
             <div key={world.id} className="flex items-center justify-between rounded border border-border px-3 py-2">
-              <span>{world.emoji} {language === 'en' ? (worldTitlesEn[world.id] ?? world.title) : world.title}</span>
+              <span>{world.emoji} {worldTitleLabel(world.id, world.title, language)}</span>
               <span>{done ? '✅' : '❌'}</span>
             </div>
           ))}

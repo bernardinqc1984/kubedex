@@ -4,12 +4,12 @@ import { XPBar } from '../components/gamification/XPBar'
 import { LevelBadge } from '../components/gamification/LevelBadge'
 import { useProgressStore } from '../store/progressStore'
 import { useUserStore } from '../store/userStore'
-import { useI18n } from '../lib/i18n'
+import { badgeNameLabel, useI18n } from '../lib/i18n'
 import { useAuthStore } from '../store/authStore'
 import { useState, type FormEvent } from 'react'
 
 export function Profile() {
-  const { t } = useI18n()
+  const { t, language } = useI18n()
   const { isAuthenticated, currentUser, login, register, logout } = useAuthStore()
   const user = useUserStore()
   const progress = useProgressStore()
@@ -79,7 +79,7 @@ export function Profile() {
       <section className="panel p-5">
         <h2 className="mb-3 text-lg font-bold">{t('allBadges')}</h2>
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-          {badges.map((b) => <div key={b.id} className={`rounded-lg border border-border p-3 text-center ${user.badges.includes(b.id) ? '' : 'opacity-40'}`}><div className="text-2xl">{b.emoji}</div><div className="text-xs">{b.name}</div></div>)}
+          {badges.map((b) => <div key={b.id} className={`rounded-lg border border-border p-3 text-center ${user.badges.includes(b.id) ? '' : 'opacity-40'}`}><div className="text-2xl">{b.emoji}</div><div className="text-xs">{badgeNameLabel(b.id, b.name, language)}</div></div>)}
         </div>
       </section>
     </main>
