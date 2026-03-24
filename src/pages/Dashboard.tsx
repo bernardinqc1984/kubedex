@@ -11,10 +11,31 @@ import { useAuthStore } from '../store/authStore'
 import { canAccessLesson } from '../lib/access'
 
 export function Dashboard() {
-  const { t } = useI18n()
+  const { t, language } = useI18n()
   const user = useUserStore()
   const progress = useProgressStore()
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+  const worldTitlesEn: Record<string, string> = {
+    world1: 'The Container Forge',
+    world2: 'The Origins Cluster',
+    world3: 'The Service Guardians',
+    world4: "The Alchemist's Vault",
+    world5: "The Master's Arena",
+  }
+  const badgeNamesEn: Record<string, string> = {
+    first_container: 'First Container',
+    image_hunter: 'Image Hunter',
+    dockerfile_master: 'Dockerfile Architect',
+    compose_wizard: 'Compose Wizard',
+    world1_complete: 'Container Forgemaster',
+    speed_runner: 'Speed Runner',
+    streak_7: '7-Day Flame',
+    streak_30: 'Infernal Flame',
+    openshift_initiate: 'OpenShift Initiate',
+    rbac_master: 'RBAC Master',
+    gitops_engineer: 'GitOps Engineer',
+    master_of_cluster: 'Cluster Master',
+  }
   const next = worlds[0].lessons.find(
     (l) =>
       !progress.completedLessons.includes(l.id) &&
@@ -37,9 +58,10 @@ export function Dashboard() {
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
           {badges.map((badge) => {
             const unlocked = user.badges.includes(badge.id)
+            const badgeLabel = language === 'en' ? (badgeNamesEn[badge.id] ?? badge.name) : badge.name
             return (
               <div key={badge.id} title={badge.description} className={`rounded-lg border border-border p-3 text-center ${unlocked ? '' : 'opacity-40'}`}>
-                <div className="text-2xl">{badge.emoji}</div><div className="text-xs">{badge.name}</div>
+                <div className="text-2xl">{badge.emoji}</div><div className="text-xs">{badgeLabel}</div>
               </div>
             )
           })}
@@ -50,13 +72,13 @@ export function Dashboard() {
             const pct = Math.round(progress.getWorldProgress(w.id, w.lessons.length) * 100)
             return (
               <div key={w.id}>
-                <div className="mb-1 flex justify-between text-xs"><span>{w.emoji} {w.title}</span><span>{pct}%</span></div>
+                <div className="mb-1 flex justify-between text-xs"><span>{w.emoji} {language === 'en' ? (worldTitlesEn[w.id] ?? w.title) : w.title}</span><span>{pct}%</span></div>
                 <div className="h-2 rounded bg-slate-800"><div className="h-2 rounded" style={{ width: `${pct}%`, background: i > 0 ? '#334155' : w.color }} /></div>
               </div>
             )
           })}
         </div>
-        {user.badges.length > 0 ? <p className="mt-4 text-xs text-slate-500">{t('lastBadge')}: {badgeById[user.badges[user.badges.length - 1]]?.name}</p> : null}
+        {user.badges.length > 0 ? <p className="mt-4 text-xs text-slate-500">{t('lastBadge')}: {language === 'en' ? (badgeNamesEn[user.badges[user.badges.length - 1]] ?? badgeById[user.badges[user.badges.length - 1]]?.name) : badgeById[user.badges[user.badges.length - 1]]?.name}</p> : null}
       </section>
     </main>
   )

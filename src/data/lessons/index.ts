@@ -1,4 +1,5 @@
 import { fail, includesAll, ok } from '../../lib/validators'
+import { OPENSHIFT_LESSONS } from './openshift'
 
 export interface LessonContent {
   id: string
@@ -110,4 +111,9 @@ const lessons: LessonContent[] = [
   },
 ]
 
-export const lessonContentById = Object.fromEntries(lessons.map((lesson) => [lesson.id, lesson]))
+const LESSON_CONTENTS = Object.fromEntries(lessons.map((lesson) => [lesson.id, lesson]))
+
+export const getLessonContent = (id: string) =>
+  LESSON_CONTENTS[id as keyof typeof LESSON_CONTENTS] ?? OPENSHIFT_LESSONS[id]
+
+export const lessonContentById = { ...LESSON_CONTENTS, ...OPENSHIFT_LESSONS }

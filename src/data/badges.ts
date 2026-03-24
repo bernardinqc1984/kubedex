@@ -16,6 +16,10 @@ export const badges: BadgeMeta[] = [
   { id: 'speed_runner', name: 'Speed Runner', emoji: '⚡', description: 'Terminer une lecon en moins de 2 minutes', rarity: 'Rare', color: '#f59e0b' },
   { id: 'streak_7', name: 'Flamme de 7 jours', emoji: '🔥', description: 'Atteindre 7 jours de streak', rarity: 'Rare', color: '#f59e0b' },
   { id: 'streak_30', name: 'Flamme Infernale', emoji: '🌋', description: 'Atteindre 30 jours de streak', rarity: 'Legendaire', color: '#ef4444' },
+  { id: 'openshift_initiate', name: 'Initie OpenShift', emoji: '🔴', description: 'Comprendre les SCC et creer ton premier ServiceAccount OCP', rarity: 'Epique', color: '#ef4444' },
+  { id: 'rbac_master', name: 'Maitre du RBAC', emoji: '🔐', description: 'Maitriser les Roles, ClusterRoles et RoleBindings', rarity: 'Epique', color: '#7c3aed' },
+  { id: 'gitops_engineer', name: 'Ingenieur GitOps', emoji: '🔄', description: 'Deployer un pipeline ArgoCD complet sur OpenShift', rarity: 'Legendaire', color: '#22c55e' },
+  { id: 'master_of_cluster', name: 'Maitre du Cluster', emoji: '👑', description: 'Terminer tous les mondes de KubeDex', rarity: 'Legendaire', color: '#f59e0b' },
 ]
 
 export const badgeById = Object.fromEntries(badges.map((b) => [b.id, b]))

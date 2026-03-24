@@ -20,6 +20,10 @@ export function Navbar() {
           <Link to="/dashboard">{t('navDashboard')}</Link>
           <Link to="/leaderboard">{t('navLeaderboard')}</Link>
           <Link to="/profile">{t('navProfile')}</Link>
+          <Link to="/advanced" className="inline-flex items-center gap-1">
+            Advanced
+            <span className="rounded bg-red-500 px-1.5 py-0.5 text-[10px] font-semibold text-white">NEW</span>
+          </Link>
         </nav>
         {isAuthenticated ? (
           <button onClick={logout} className="rounded-md border border-border px-3 py-1 text-xs">{t('logout')}</button>

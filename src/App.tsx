@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Navbar } from './components/layout/Navbar'
+import AdvancedPage from './pages/AdvancedPage'
 import { Dashboard } from './pages/Dashboard'
 import { Landing } from './pages/Landing'
 import { Leaderboard } from './pages/Leaderboard'
@@ -13,6 +14,7 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/advanced" element={<AdvancedPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/world/:worldId" element={<WorldMapPage />} />
         <Route path="/lesson/:lessonId" element={<LessonPage />} />

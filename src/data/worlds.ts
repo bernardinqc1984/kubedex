@@ -59,7 +59,24 @@ export const worlds: WorldMeta[] = [
   w('world2', 'Le Cluster des Origines', 'Bases Kubernetes', '⎈', '#7c3aed', 7, 'world2_complete'),
   w('world3', 'Les Gardiens du Service', 'Networking et Ingress', '🌐', '#22c55e', 5, 'world3_complete'),
   w('world4', "Le Coffre de l'Alchimiste", 'Storage et StatefulSets', '💾', '#f59e0b', 5, 'world4_complete'),
-  w('world5', "L'Arene des Maitres", 'Helm, RBAC, GitOps', '🔴', '#ef4444', 6, 'master_of_cluster'),
+  {
+    id: 'world5',
+    title: "L'Arene des Maitres",
+    subtitle: 'OpenShift & Cloud Native Avance',
+    emoji: '🔴',
+    color: '#ef4444',
+    badgeOnComplete: 'master_of_cluster',
+    lessons: [
+      { id: 'world5-l1', worldId: 'world5', title: 'OpenShift vs Kubernetes', subtitle: 'Comprendre les differences clefs', type: 'cli', xpReward: 75, estimatedMinutes: 12, position: { x: 15, y: 70 } },
+      { id: 'world5-l2', worldId: 'world5', title: 'La CLI oc', subtitle: 'Commandes OpenShift essentielles', type: 'cli', xpReward: 75, estimatedMinutes: 15, position: { x: 30, y: 55 }, prerequisite: 'world5-l1' },
+      { id: 'world5-l3', worldId: 'world5', title: 'Security Context Constraints', subtitle: 'Securite runtime OpenShift', type: 'yaml', xpReward: 100, estimatedMinutes: 20, position: { x: 45, y: 40 }, prerequisite: 'world5-l2', badgeOnComplete: 'openshift_initiate' },
+      { id: 'world5-l4', worldId: 'world5', title: 'Routes & Ingress OCP', subtitle: 'Exposition HTTPS', type: 'yaml', xpReward: 100, estimatedMinutes: 20, position: { x: 58, y: 58 }, prerequisite: 'world5-l3' },
+      { id: 'world5-l5', worldId: 'world5', title: 'DeploymentConfig & ImageStreams', subtitle: 'Deploiement historique OCP', type: 'cli', xpReward: 100, estimatedMinutes: 20, position: { x: 68, y: 38 }, prerequisite: 'world5-l4' },
+      { id: 'world5-l6', worldId: 'world5', title: 'Helm sur OpenShift', subtitle: 'Charts compatibles SCC', type: 'yaml', xpReward: 100, estimatedMinutes: 20, position: { x: 75, y: 58 }, prerequisite: 'world5-l5' },
+      { id: 'world5-l7', worldId: 'world5', title: 'RBAC & ServiceAccounts', subtitle: 'Permissions fines et securisees', type: 'yaml', xpReward: 100, estimatedMinutes: 20, position: { x: 82, y: 38 }, prerequisite: 'world5-l6', badgeOnComplete: 'rbac_master' },
+      { id: 'world5-boss', worldId: 'world5', title: 'BOSS - Pipeline GitOps complet', subtitle: 'ArgoCD de bout en bout', type: 'boss', xpReward: 300, estimatedMinutes: 60, position: { x: 90, y: 55 }, prerequisite: 'world5-l7', badgeOnComplete: 'master_of_cluster' },
+    ],
+  },
 ]
 
 export const allLessons = worlds.flatMap((world) => world.lessons)
