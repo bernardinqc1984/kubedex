@@ -52,11 +52,11 @@ export function Navbar() {
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value as 'fr' | 'en')}
-          className="rounded-md border border-border bg-slate-900 px-2 py-1 text-xs"
+          className="rounded-lg border border-cyan-500/30 bg-[#02102a] px-3 py-1.5 text-xs text-slate-200 shadow-[0_0_0_1px_rgba(0,212,255,0.05)]"
           aria-label="Language selector"
         >
-          <option value="fr">FR</option>
-          <option value="en">EN</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="en">🇬🇧 English</option>
         </select>
         <div className="hidden md:block"><StreakCounter streak={streak} /></div>
       </div>
