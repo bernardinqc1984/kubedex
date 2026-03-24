@@ -6,7 +6,7 @@ import { LevelBadge } from '../components/gamification/LevelBadge'
 import { StreakCounter } from '../components/gamification/StreakCounter'
 import { useUserStore } from '../store/userStore'
 import { useProgressStore } from '../store/progressStore'
-import { badgeNameLabel, useI18n, worldTitleLabel } from '../lib/i18n'
+import { badgeNameLabel, lessonTitleLabel, useI18n, worldTitleLabel } from '../lib/i18n'
 import { useAuthStore } from '../store/authStore'
 import { canAccessLesson } from '../lib/access'
 import { Link2, Lock } from 'lucide-react'
@@ -34,7 +34,7 @@ export function Dashboard() {
         <StreakCounter streak={user.streak} large />
         {next ? (
           <Link to={`/lesson/${next.id}`} className="inline-block rounded-lg bg-cyan-400 px-4 py-2 font-semibold text-black">
-            {t('continue')} · {next.title} · ~{next.estimatedMinutes} min
+            {t('continue')} · {lessonTitleLabel(next.id, next.title, language)} · ~{next.estimatedMinutes} min
           </Link>
         ) : null}
       </section>

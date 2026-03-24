@@ -199,3 +199,26 @@ export const badgeNameLabel = (badgeId: string, fallback: string, language: 'fr'
   }
   return map[badgeId] ?? fallback
 }
+
+export const lessonTitleLabel = (lessonId: string, fallback: string, language: 'fr' | 'en') => {
+  if (language === 'fr') return fallback
+  const map: Record<string, string> = {
+    'world1-l1': 'What is a container?',
+    'world1-l2': 'Images vs Containers',
+    'world1-l3': 'Your first Dockerfile',
+    'world1-l4': 'docker build & layers',
+    'world1-l5': 'Variables & Ports',
+    'world1-l6': 'Docker Compose',
+    'world1-l7': 'Volumes & Persistence',
+    'world1-boss': 'Boss: Full-Stack App',
+    'world5-l1': 'OpenShift vs Kubernetes',
+    'world5-l2': 'The oc CLI',
+    'world5-l3': 'Security Context Constraints',
+    'world5-l4': 'Routes & Ingress OCP',
+    'world5-l5': 'DeploymentConfig & ImageStreams',
+    'world5-l6': 'Helm on OpenShift',
+    'world5-l7': 'RBAC & ServiceAccounts',
+    'world5-boss': 'BOSS — Full GitOps Pipeline',
+  }
+  return map[lessonId] ?? fallback
+}
